@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Post from "../post/Post";
-import Form from "../form/Form";
 import FlipMove from "react-flip-move";
 import "./home.css";
 
@@ -33,20 +32,24 @@ function Home() {
   };
 
   return (
-    <div>
-      <h3>${actual}</h3>
-      <FlipMove>
-        {posts.map(({ id, money, date, income, cathegory }) => (
-          <Post
-            key={id}
-            money={money}
-            date={date}
-            income={income}
-            cathegory={cathegory}
-          />
-        ))}
+    <div className="home">
+      <div className="home__actual">
+        <h3>Actual Funds: ${actual}</h3>
+      </div>
+      <FlipMove className="home__table">
+        {posts &&
+          posts
+            .slice(0, 10)
+            .map(({ id, money, date, income, cathegory }) => (
+              <Post
+                key={id}
+                money={money}
+                date={date}
+                income={income}
+                cathegory={cathegory}
+              />
+            ))}
       </FlipMove>
-      <Form />
     </div>
   );
 }

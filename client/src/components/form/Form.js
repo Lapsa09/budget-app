@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
+import DatePicker from "react-date-picker";
+import { useHistory } from "react-router-dom";
 import "./form.css";
 
 function Form() {
   const [money, setMoney] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date());
   const [type, setType] = useState(null);
   const [cathegory, setCathegory] = useState("");
+  const history = useHistory();
 
   const handleRadio = (e) => {
     const valueRadio = e.target.value === "true" ? true : false;
@@ -29,47 +32,42 @@ function Form() {
         setDate("");
         setType(null);
         setCathegory("");
+        history.push("/");
       })
       .catch((e) => console.log(e));
   };
   return (
-    <form>
+    <form className="form">
       <label>
-        Money
+        $
         <input
           type="number"
           value={money}
           onChange={(e) => setMoney(e.target.value)}
         />
       </label>
+      <div className="movement__type">
+        <label>
+          <input
+            type="radio"
+            value="true"
+            checked={type === true}
+            onChange={handleRadio}
+          />
+          Income
+        </label>
+        <label>
+          <input
+            type="radio"
+            value="false"
+            checked={type === false}
+            onChange={handleRadio}
+          />
+          Outcome
+        </label>
+      </div>
       <label>
-        Date
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        />
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="true"
-          checked={type === true}
-          onChange={handleRadio}
-        />
-        Income
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="false"
-          checked={type === false}
-          onChange={handleRadio}
-        />
-        Outcome
-      </label>
-      <label>
-        Cathegory
+        Category
         <input
           type="text"
           value={cathegory}

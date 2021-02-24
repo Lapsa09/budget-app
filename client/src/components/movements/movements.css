@@ -1,0 +1,12 @@
+.movements {
+    margin-top: 20px;
+}
+
+.movements>.movements__moves {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.movements__moves>.post {
+    margin-bottom: 20px;
+}

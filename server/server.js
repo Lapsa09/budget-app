@@ -17,7 +17,7 @@ app.use(
 
 app.get("/api", async (req, res) => {
   try {
-    const result = await db.query("select * from incomes");
+    const result = await db.query("select * from incomes ORDER BY date DESC");
 
     res.status(200).json(result.rows);
   } catch (error) {

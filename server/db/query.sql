@@ -1,7 +1,7 @@
 CREATE TABLE incomes(
     id SERIAL PRIMARY KEY,
     money FLOAT(2) NOT NULL,
-    date DATE NOT NULL,
+    date TIMESTAMPTZ NOT NULL,
     income BOOLEAN NOT NULL,
     cathegory text NOT NULL
 );
