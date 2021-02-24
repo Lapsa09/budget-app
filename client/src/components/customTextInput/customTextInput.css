@@ -1,0 +1,20 @@
+.textInput {
+    margin: 0 auto;
+    margin-bottom: 50px;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.textInput>input {
+    width: 100%;
+    margin-top: 5px;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid lightgray;
+    text-transform: uppercase;
+    outline: none;
+    font-size: 2rem;
+}

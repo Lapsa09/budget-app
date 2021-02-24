@@ -48,7 +48,7 @@ app.post("/api", async (req, res) => {
 
     res.status(201).json(result.rows);
   } catch (error) {
-    res.send(error);
+    console.log(error.message);
   }
 });
 

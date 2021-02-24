@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import DatePicker from "react-date-picker";
 import { useHistory } from "react-router-dom";
+import CustomRadioInput from "../customRadioInput/CustomRadioInput";
+import CustomMoneyInput from "../customMoneyInput/CustomMoneyInput";
+import CustomTextInput from "../customTextInput/CustomTextInput";
 import "./form.css";
 
 function Form() {
@@ -15,6 +17,11 @@ function Form() {
     const valueRadio = e.target.value === "true" ? true : false;
 
     setType(valueRadio);
+  };
+
+  const handleMoney = (e) => {
+    const _money = e.target.value.split(/[$,]/).slice(1).join("");
+    setMoney(_money);
   };
 
   const handleSubmit = (e) => {
@@ -38,42 +45,25 @@ function Form() {
   };
   return (
     <form className="form">
-      <label>
-        $
-        <input
-          type="number"
-          value={money}
-          onChange={(e) => setMoney(e.target.value)}
-        />
-      </label>
+      <CustomMoneyInput onChange={handleMoney} value={money} placeholder="$0" />
       <div className="movement__type">
-        <label>
-          <input
-            type="radio"
-            value="true"
-            checked={type === true}
-            onChange={handleRadio}
-          />
-          Income
-        </label>
-        <label>
-          <input
-            type="radio"
-            value="false"
-            checked={type === false}
-            onChange={handleRadio}
-          />
-          Outcome
-        </label>
-      </div>
-      <label>
-        Category
-        <input
-          type="text"
-          value={cathegory}
-          onChange={(e) => setCathegory(e.target.value)}
+        <CustomRadioInput
+          value="true"
+          checked={type === true}
+          onChange={handleRadio}
+          text="Income"
         />
-      </label>
+        <CustomRadioInput
+          value="false"
+          checked={type === false}
+          onChange={handleRadio}
+          text="Outcome"
+        />
+      </div>
+      <CustomTextInput
+        value={cathegory}
+        onChange={(e) => setCathegory(e.target.value)}
+      />
       <button onClick={handleSubmit} type="submit">
         Send
       </button>

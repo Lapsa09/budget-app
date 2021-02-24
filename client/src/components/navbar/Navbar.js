@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
 
 function Navbar() {
   const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const pathname = window.location.pathname;
+
+    setActive(() => {
+      return pathname == "/" ? 0 : pathname == "/movements" ? 1 : 2;
+    });
+  }, []);
 
   return (
     <nav className="navbar">

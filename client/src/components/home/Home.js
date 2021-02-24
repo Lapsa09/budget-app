@@ -34,7 +34,7 @@ function Home() {
   return (
     <div className="home">
       <div className="home__actual">
-        <h3>Actual Funds: ${actual}</h3>
+        <h3>Current Funds: ${actual}</h3>
       </div>
       <FlipMove className="home__table">
         {posts &&

@@ -1,0 +1,14 @@
+.moneyInput {
+    height: 40px;
+    font-size: 3rem;
+    width: 400px;
+    padding: 30px 0;
+    text-align: center;
+    outline: 0;
+    margin-bottom: 50px;
+    border: none;
+}
+
+.moneyInput::placeholder {
+    color: black;
+}
