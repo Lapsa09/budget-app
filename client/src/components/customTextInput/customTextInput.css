@@ -5,6 +5,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    color: #908e9b;
 }
 
 .textInput>input {
@@ -16,5 +17,5 @@
     border-bottom: 1px solid lightgray;
     text-transform: uppercase;
     outline: none;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }

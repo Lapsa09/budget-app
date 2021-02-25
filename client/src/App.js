@@ -1,29 +1,34 @@
 import "./App.css";
 import React from "react";
 import Home from "./components/home/Home";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Form from "./components/form/Form";
-import Navbar from "./components/navbar/Navbar";
 import Movements from "./components/movements/Movements";
+import { useSelector } from "react-redux";
+import { getModalState } from "./redux/features/ModalSlice";
+import Form from "./components/form/Form";
 
 function App() {
+  const modal = useSelector(getModalState);
   return (
-    <Router>
-      <div className="app">
-        <Navbar />
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/movements">
-            <Movements />
-          </Route>
-          <Route path="/new">
-            <Form />
-          </Route>
-        </Switch>
+    <div className="app">
+      <div className="tabs">
+        <div className="tab-2">
+          <label htmlFor="tab2-1">Home</label>
+          <input
+            id="tab2-1"
+            name="tabs-two"
+            type="radio"
+            defaultChecked="checked"
+          />
+          <Home />
+        </div>
+        <div className="tab-2">
+          <label htmlFor="tab2-2">Movements</label>
+          <input id="tab2-2" name="tabs-two" type="radio" />
+          <Movements />
+        </div>
       </div>
-    </Router>
+      {modal && <Form />}
+    </div>
   );
 }
 

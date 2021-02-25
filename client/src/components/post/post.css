@@ -2,8 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     border-radius: 10px;
-    background: #0077b6;
-    /* box-shadow: 3px 3px 3px #ba0681, -3px -3px 3px #ba0681; */
+    background: #8739f9;
     transition: all 0.2s;
 }
 

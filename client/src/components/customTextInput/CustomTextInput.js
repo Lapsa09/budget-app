@@ -1,11 +1,11 @@
 import React from "react";
 import "./customTextInput.css";
 
-function CustomTextInput({ value, onChange }) {
+function CustomTextInput({ ...props }) {
   return (
     <label className="textInput">
       Category
-      <input type="text" value={value} onChange={onChange} />
+      <input type="text" {...props} />
     </label>
   );
 }
