@@ -1,21 +1,37 @@
 .post {
-    display: flex;
-    flex-wrap: wrap;
-    border-radius: 10px;
-    background: #8739f9;
-    transition: all 0.2s;
+    text-align: center;
+    text-transform: capitalize;
+    background-color: #8739f9;
+    user-select: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-radius: 50px;
+    margin-bottom: 10px;
+    position: relative;
 }
 
 .post:hover {
-    transform: scale(1.1);
     cursor: pointer;
 }
 
-.post>p {
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    text-transform: uppercase;
-    font-weight: 700;
-    color: #e5e5e5;
+.post>.manageIcons {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+}
+
+.manageIcons>.MuiSvgIcon-root {
+    transition: all 0.3s;
+    opacity: 0;
+}
+
+.manageIcons.active {
+    display: block;
+}
+
+.manageIcons>.MuiSvgIcon-root:hover {
+    color: white;
+    opacity: 1;
 }

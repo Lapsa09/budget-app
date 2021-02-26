@@ -1,18 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import CustomRadioInput from "../customRadioInput/CustomRadioInput";
 import CustomMoneyInput from "../customMoneyInput/CustomMoneyInput";
 import CustomTextInput from "../customTextInput/CustomTextInput";
 import "./form.css";
-import { useDispatch } from "react-redux";
-import { toggleModal } from "../../redux/features/ModalSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { closeModal, getForEdit } from "../../redux/features/ModalSlice";
+import { getPosts, setPosts } from "../../redux/features/PostsSlice";
 
 function Form() {
   const [money, setMoney] = useState("");
   const [date, setDate] = useState(new Date());
   const [type, setType] = useState(null);
-  const [cathegory, setCathegory] = useState("");
+  const [concept, setConcept] = useState("");
   const dispatch = useDispatch();
+  const posts = useSelector(getPosts);
+  const incomes = useSelector(getForEdit);
+
+  useEffect(() => {
+    if (incomes) {
+      setMoney(incomes.money);
+      setType(incomes.income);
+      setConcept(incomes.concept);
+    }
+  }, []);
 
   const handleRadio = (e) => {
     const valueRadio = e.target.value === "true" ? true : false;
@@ -25,29 +36,38 @@ function Form() {
     setMoney(_money);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    axios
-      .post("http://localhost:3000/api", {
+    const { data } = await axios.post("http://localhost:3000/api", {
+      money,
+      date,
+      income: type,
+      concept,
+    });
+    dispatch(setPosts([...data, ...posts]));
+    dispatch(closeModal());
+  };
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
+
+    const { data } = await axios.put(
+      `http://localhost:3000/api/${incomes.id}`,
+      {
         money,
-        date,
-        income: type,
-        cathegory,
-      })
-      .then(() => {
-        setMoney("");
-        setDate("");
-        setType(null);
-        setCathegory("");
-        dispatch(toggleModal());
-      })
-      .catch((e) => console.log(e));
+        concept,
+      }
+    );
+    dispatch(
+      setPosts(posts.map((post) => (post.id == data[0].id ? data[0] : post)))
+    );
+    dispatch(closeModal());
   };
   return (
     <div className="form-background">
       <form className="form">
-        <div onClick={() => dispatch(toggleModal())} className="form__close">
+        <div onClick={() => dispatch(closeModal())} className="form__close">
           X
         </div>
         <CustomMoneyInput
@@ -60,22 +80,31 @@ function Form() {
             value="true"
             checked={type === true}
             onChange={handleRadio}
-            text="Income"
+            label="Income"
+            disabled={incomes}
           />
           <CustomRadioInput
             value="false"
             checked={type === false}
             onChange={handleRadio}
-            text="Outcome"
+            label="Outcome"
+            disabled={incomes}
           />
         </div>
         <CustomTextInput
-          value={cathegory}
-          onChange={(e) => setCathegory(e.target.value)}
+          value={concept}
+          label="Concept"
+          onChange={(e) => setConcept(e.target.value)}
         />
-        <button onClick={handleSubmit} type="submit">
-          Submit
-        </button>
+        {incomes ? (
+          <button onClick={handleEdit} type="submit">
+            Edit
+          </button>
+        ) : (
+          <button onClick={handleSubmit} type="submit">
+            Submit
+          </button>
+        )}
       </form>
     </div>
   );

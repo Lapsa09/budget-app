@@ -1,12 +1,8 @@
 .movements {
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
-.movements>.movements__moves {
-    width: 50%;
-    margin: 0 auto;
-}
-
-.movements__moves>.post {
-    margin-bottom: 20px;
+.movements>h1 {
+    font-size: 3rem;
+    text-align: center;
 }

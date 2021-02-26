@@ -1,31 +1,24 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import Post from "../post/Post";
-import FlipMove from "react-flip-move";
+import React, { useEffect } from "react";
+import { setPosts, getPosts } from "../../redux/features/PostsSlice";
+import PostTable from "../postTable/PostTable";
+import { useDispatch, useSelector } from "react-redux";
 import "./movements.css";
 
 function Movements() {
-  const [posts, setPosts] = useState([]);
+  const posts = useSelector(getPosts);
+  const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axios.get("http://localhost:3000/api");
-      setPosts(data);
+      dispatch(setPosts(data));
     };
     fetchData();
   }, []);
   return (
     <div className="movements">
-      <FlipMove className="movements__moves">
-        {posts.map(({ id, money, date, income, cathegory }) => (
-          <Post
-            key={id}
-            money={money}
-            date={date}
-            income={income}
-            cathegory={cathegory}
-          />
-        ))}
-      </FlipMove>
+      <h1>Movements</h1>
+      <PostTable posts={posts} />
     </div>
   );
 }

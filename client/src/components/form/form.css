@@ -1,5 +1,5 @@
 .form-background {
-    background-color: rgba(222, 226, 255, 0.3);
+    background-color: rgba(222, 226, 255, 0.6);
     position: fixed;
     top: 0;
     left: 0;
@@ -8,16 +8,15 @@
     height: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid white;
     border-radius: 10px;
-    width: 80%;
-    margin: 20px auto;
+    min-width: 40%;
     background-color: white;
     padding: 50px 0;
     position: relative;
@@ -42,8 +41,9 @@
     margin-bottom: 50px;
     display: flex;
     justify-content: space-evenly;
-    width: 50%;
+    width: 30%;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .form>button:hover {

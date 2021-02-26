@@ -1,10 +1,10 @@
 import React from "react";
 import "./customTextInput.css";
 
-function CustomTextInput({ ...props }) {
+function CustomTextInput({ label, ...props }) {
   return (
     <label className="textInput">
-      Category
+      {label}
       <input type="text" {...props} />
     </label>
   );

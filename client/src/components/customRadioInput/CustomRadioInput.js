@@ -1,11 +1,11 @@
 import React from "react";
 import "./customRadioInput.css";
 
-function CustomRadioInput({ text, ...otherProps }) {
+function CustomRadioInput({ label, ...otherProps }) {
   return (
     <label className="radio">
       <input type="radio" {...otherProps} />
-      {text}
+      {label}
       <span className="checkmark"></span>
     </label>
   );

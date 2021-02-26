@@ -6,18 +6,19 @@
 .home__main {
     display: flex;
     align-items: center;
-    position: relative;
+    justify-content: space-between;
+    width: 50%;
+    margin: 0 auto;
+    width: 50%;
 }
 
 .home__more {
     background-color: #8739f9;
     padding: 20px 25px;
     border-radius: 50%;
-    height: fit-content;
     font-size: 2rem;
-    position: absolute;
-    left: 80%;
     user-select: none;
+    position: relative;
     cursor: pointer;
     transition: all 0.3s;
 }
@@ -27,8 +28,9 @@
 }
 
 .home__actual {
-    width: 50%;
+    width: 80%;
     margin: 20px auto;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -44,9 +46,17 @@
     cursor: pointer;
 }
 
-.home__table {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 15px 40px;
-    margin-bottom: 20px;
+@media(max-width:900px) {
+    .home__main {
+        width: 100%;
+    }
+}
+
+@media(max-width:400px) {
+    .home__main {
+        flex-direction: column;
+    }
+    .home__actual {
+        width: 100%;
+    }
 }

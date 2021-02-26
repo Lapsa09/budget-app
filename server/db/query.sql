@@ -3,7 +3,7 @@ CREATE TABLE incomes(
     money FLOAT(2) NOT NULL,
     date TIMESTAMPTZ NOT NULL,
     income BOOLEAN NOT NULL,
-    cathegory text NOT NULL
+    concept text NOT NULL
 );
 
 CREATE TABLE users(

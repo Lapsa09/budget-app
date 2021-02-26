@@ -38,12 +38,12 @@ app.get("/api/:id", async (req, res) => {
 });
 
 app.post("/api", async (req, res) => {
-  const { money, date, income, cathegory } = req.body;
+  const { money, date, income, concept } = req.body;
 
   try {
     const result = await db.query(
-      "INSERT INTO incomes (money,date,income,cathegory) VALUES ($1,$2,$3,$4) returning *",
-      [money, date, income, cathegory]
+      "INSERT INTO incomes (money,date,income,concept) VALUES ($1,$2,$3,$4) returning *",
+      [money, date, income, concept]
     );
 
     res.status(201).json(result.rows);
@@ -53,12 +53,12 @@ app.post("/api", async (req, res) => {
 });
 
 app.put("/api/:id", async (req, res) => {
-  const { money, date, income, cathegory } = req.body;
+  const { money, concept } = req.body;
 
   try {
     const result = await db.query(
-      "UPDATE incomes SET money=$1, date=$2, income=$3, cathegory=$4 WHERE id=$5 returning *",
-      [money, date.toString(), income, cathegory, req.params.id]
+      "UPDATE incomes SET money=$1, concept=$2 WHERE id=$3 returning *",
+      [money, concept, req.params.id]
     );
     res.status(200).json(result.rows);
   } catch (error) {
@@ -68,12 +68,11 @@ app.put("/api/:id", async (req, res) => {
 
 app.delete("/api/:id", async (req, res) => {
   try {
-    const result = await db.query("DELETE from incomes where id=$1", [
-      req.params.id,
-    ]);
-    res.status(204).json({
-      status: "success",
-    });
+    const result = await db.query(
+      "DELETE from incomes where id=$1 returning *",
+      [req.params.id]
+    );
+    res.status(204).json(result.rows);
   } catch (error) {
     res.send(error);
   }
