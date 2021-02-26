@@ -1,6 +1,5 @@
 CREATE TABLE incomes(
     id SERIAL PRIMARY KEY,
-    user_id INT references users(id),
     money FLOAT(2) NOT NULL,
     date TIMESTAMPTZ NOT NULL,
     income BOOLEAN NOT NULL,
@@ -13,3 +12,5 @@ CREATE TABLE users(
     email VARCHAR(50) NOT NULL,
     password VARCHAR(50) NOT NULL
 );
+
+    -- user_id INT references users(id),

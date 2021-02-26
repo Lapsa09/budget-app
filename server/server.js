@@ -19,6 +19,17 @@ app.get("/", (req, res) => {
   res.send("Welcome to my API");
 });
 
+app.get("/db", async (req, res) => {
+  try {
+    const result = await db.query("SELECT * FROM test_table");
+    const results = { results: result ? result.rows : null };
+    res.render("pages/db", results);
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+});
+
 app.get("/api", async (req, res) => {
   try {
     const result = await db.query("select * from incomes ORDER BY date DESC");

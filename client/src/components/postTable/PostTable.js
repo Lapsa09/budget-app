@@ -2,11 +2,14 @@ import React from "react";
 import Post from "../post/Post";
 import FlipMove from "react-flip-move";
 import "./postTable.css";
+import { useSelector } from "react-redux";
+import { getTab } from "../../redux/features/TabSlice";
 
 function PostTable({ posts }) {
+  const tab = useSelector(getTab);
   return (
     <div className="postTable">
-      <div className="postTable__header">
+      <div className={`postTable__header ${tab === 1 && "editable"}`}>
         <p>Date</p>
         <p>Concept</p>
         <p>Amount</p>

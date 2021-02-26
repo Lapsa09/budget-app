@@ -28,7 +28,6 @@
     padding: 2rem 0;
     text-align: center;
     text-transform: uppercase;
-    user-select: none;
 }
 
 .app>.tabs [class^="tab"] [type="radio"], .app>.tabs [class*=" tab"] [type="radio"] {

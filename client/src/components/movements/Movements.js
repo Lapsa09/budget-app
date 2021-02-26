@@ -10,7 +10,9 @@ function Movements() {
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await axios.get("http://localhost:3000/api");
+      const { data } = await axios.get(
+        "https://rocky-fjord-87785.herokuapp.com/api"
+      );
       dispatch(setPosts(data));
     };
     fetchData();

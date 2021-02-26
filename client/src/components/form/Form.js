@@ -39,12 +39,15 @@ function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { data } = await axios.post("http://localhost:3000/api", {
-      money,
-      date,
-      income: type,
-      concept,
-    });
+    const { data } = await axios.post(
+      "https://rocky-fjord-87785.herokuapp.com/api",
+      {
+        money,
+        date,
+        income: type,
+        concept,
+      }
+    );
     dispatch(setPosts([...data, ...posts]));
     dispatch(closeModal());
   };
@@ -53,7 +56,7 @@ function Form() {
     e.preventDefault();
 
     const { data } = await axios.put(
-      `http://localhost:3000/api/${incomes.id}`,
+      `https://rocky-fjord-87785.herokuapp.com/api/${incomes.id}`,
       {
         money,
         concept,

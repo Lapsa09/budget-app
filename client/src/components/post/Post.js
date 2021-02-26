@@ -31,20 +31,26 @@ const Post = forwardRef(({ id, money, income, concept, date }, ref) => {
   };
 
   const handleDelete = async () => {
-    const { data } = await axios.delete(`http://localhost:3000/api/${id}`);
+    const { data } = await axios.delete(
+      `https://rocky-fjord-87785.herokuapp.com/api/${id}`
+    );
 
     dispatch(setPosts(posts.filter((post) => post.id != id)));
   };
-
   return (
-    <div ref={ref} className="post">
+    <div ref={ref} className={`post ${tab === 1 && "editable"}`}>
       <p>{handleDate(date)}</p>
       <p>{concept}</p>
       <p>{income ? `$ ${money}` : `($ ${money})`}</p>
-      <div className={`manageIcons ${tab === 1 && "active"}`}>
-        <Edit onClick={handleEdit} />
-        <Delete onClick={handleDelete} />
-      </div>
+
+      <Edit
+        onClick={handleEdit}
+        className={`manageIcon ${tab === 1 && "active"}`}
+      />
+      <Delete
+        onClick={handleDelete}
+        className={`manageIcon ${tab === 1 && "active"}`}
+      />
     </div>
   );
 });

@@ -2,9 +2,8 @@
     text-align: center;
     text-transform: capitalize;
     background-color: #8739f9;
-    user-select: none;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 0.5fr);
     border-radius: 50px;
     margin-bottom: 10px;
     position: relative;
@@ -14,24 +13,28 @@
     cursor: pointer;
 }
 
-.post>.manageIcons {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
+.post.editable {
+    grid-template-columns: repeat(3, 0.5fr) 0.2fr 0.2fr;
+}
+
+.post>.manageIcon {
     display: none;
+    align-self: center;
+    transition: all 0.3s !important;
 }
 
-.manageIcons>.MuiSvgIcon-root {
-    transition: all 0.3s;
-    opacity: 0;
+.post>.manageIcon.active {
+    display: flex;
+    align-items: center;
 }
 
-.manageIcons.active {
-    display: block;
-}
-
-.manageIcons>.MuiSvgIcon-root:hover {
+.post>.manageIcon:hover {
     color: white;
-    opacity: 1;
+}
+
+@media(max-width:450px) {
+    .post>.manageIcon {
+        flex-direction: column;
+        width: 20px;
+    }
 }
