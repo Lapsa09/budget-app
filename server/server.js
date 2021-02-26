@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const db = require("./db/index");
 require("dotenv").config();
 
@@ -14,6 +14,10 @@ app.use(
     extended: true,
   })
 );
+
+app.get("/", (req, res) => {
+  res.send("Welcome to my API");
+});
 
 app.get("/api", async (req, res) => {
   try {
