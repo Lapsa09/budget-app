@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect } from "react";
-import { setPosts, getPosts } from "../../redux/features/PostsSlice";
+import { setPosts, getPosts, setFunds } from "../../redux/features/PostsSlice";
 import PostTable from "../postTable/PostTable";
 import { useDispatch, useSelector } from "react-redux";
 import "./movements.css";
@@ -15,6 +15,7 @@ function Movements() {
       );
       dispatch(setPosts(data));
     };
+    dispatch(setFunds());
     fetchData();
   }, []);
   return (

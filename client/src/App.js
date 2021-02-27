@@ -29,10 +29,6 @@ function App() {
     dispatch(setFunds());
   }, []);
 
-  useEffect(() => {
-    dispatch(setFunds());
-  });
-
   return (
     <div className="app">
       <Tabs tabNames={["Home", "Movements"]}>

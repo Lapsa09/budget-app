@@ -3,7 +3,7 @@ import { Edit, Delete } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { getTab } from "../../redux/features/TabSlice";
 import { selectIncome, openModal } from "../../redux/features/ModalSlice";
-import { getPosts, setPosts } from "../../redux/features/PostsSlice";
+import { getPosts, setFunds, setPosts } from "../../redux/features/PostsSlice";
 import axios from "axios";
 import "./post.css";
 
@@ -36,6 +36,7 @@ const Post = forwardRef(({ id, money, income, concept, date }, ref) => {
     );
 
     dispatch(setPosts(posts.filter((post) => post.id != id)));
+    dispatch(setFunds());
   };
   return (
     <div ref={ref} className={`post ${tab === 1 && "editable"}`}>

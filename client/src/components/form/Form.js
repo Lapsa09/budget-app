@@ -6,7 +6,7 @@ import CustomTextInput from "../customTextInput/CustomTextInput";
 import "./form.css";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal, getForEdit } from "../../redux/features/ModalSlice";
-import { getPosts, setPosts } from "../../redux/features/PostsSlice";
+import { getPosts, setFunds, setPosts } from "../../redux/features/PostsSlice";
 
 function Form() {
   const [money, setMoney] = useState("");
@@ -49,6 +49,7 @@ function Form() {
       }
     );
     dispatch(setPosts([...data, ...posts]));
+    dispatch(setFunds());
     dispatch(closeModal());
   };
 
@@ -65,6 +66,7 @@ function Form() {
     dispatch(
       setPosts(posts.map((post) => (post.id == data[0].id ? data[0] : post)))
     );
+    dispatch(setFunds());
     dispatch(closeModal());
   };
   return (
