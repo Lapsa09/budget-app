@@ -1,13 +1,7 @@
-import axios from "axios";
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../redux/features/ModalSlice";
-import {
-  setPosts,
-  getPosts,
-  getFunds,
-  setFunds,
-} from "../../redux/features/PostsSlice";
+import { getPosts, getFunds } from "../../redux/features/PostsSlice";
 import PostTable from "../postTable/PostTable";
 import "./home.css";
 
@@ -15,21 +9,6 @@ function Home() {
   const posts = useSelector(getPosts);
   const dispatch = useDispatch();
   const funds = useSelector(getFunds);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await axios.get(
-        "https://rocky-fjord-87785.herokuapp.com/api"
-      );
-      dispatch(setPosts(data));
-    };
-    fetchData();
-    dispatch(setFunds());
-  }, []);
-
-  useEffect(() => {
-    dispatch(setFunds());
-  });
 
   return (
     <div className="home">

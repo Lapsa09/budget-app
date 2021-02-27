@@ -1,41 +1,44 @@
 import "./App.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Home from "./components/home/Home";
 import Movements from "./components/movements/Movements";
 import { useDispatch, useSelector } from "react-redux";
 import { getModalState } from "./redux/features/ModalSlice";
-import { setTab } from "./redux/features/TabSlice";
 import Form from "./components/form/Form";
+import { setFunds, setPosts } from "./redux/features/PostsSlice";
+import WithSpinner from "./components/spinner/with-spinner";
+import axios from "axios";
+import Tabs from "./components/tabs/Tabs";
+
+const HomePageWithSpinner = WithSpinner(Home);
 
 function App() {
   const modal = useSelector(getModalState);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await axios.get(
+        "https://rocky-fjord-87785.herokuapp.com/api"
+      );
+      dispatch(setPosts(data));
+      setLoading(false);
+    };
+    fetchData();
+    dispatch(setFunds());
+  }, []);
+
+  useEffect(() => {
+    dispatch(setFunds());
+  });
 
   return (
     <div className="app">
-      <div className="tabs">
-        <div className="tab-2">
-          <label htmlFor="tab2-1">Home</label>
-          <input
-            id="tab2-1"
-            name="tabs-two"
-            type="radio"
-            defaultChecked="checked"
-            onChange={() => dispatch(setTab(0))}
-          />
-          <Home />
-        </div>
-        <div className="tab-2">
-          <label htmlFor="tab2-2">Movements</label>
-          <input
-            id="tab2-2"
-            name="tabs-two"
-            type="radio"
-            onChange={() => dispatch(setTab(1))}
-          />
-          <Movements />
-        </div>
-      </div>
+      <Tabs tabNames={["Home", "Movements"]}>
+        <HomePageWithSpinner loading={loading} />
+        <Movements />
+      </Tabs>
       {modal && <Form />}
     </div>
   );
