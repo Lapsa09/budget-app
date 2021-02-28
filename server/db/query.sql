@@ -1,16 +1,17 @@
 CREATE TABLE incomes(
     id SERIAL PRIMARY KEY,
+    user_id UUID,
     money FLOAT(2) NOT NULL,
     date TIMESTAMPTZ NOT NULL,
     income BOOLEAN NOT NULL,
-    concept text NOT NULL
+    concept text NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE users(
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(10) NOT NULL,
-    email VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL
+    user_id UUID DEFAULT uuid_generate_v4(),
+    user_name VARCHAR(255) NOT NULL,
+    user_email VARCHAR(255) NOT NULL UNIQUE,
+    user_password VARCHAR(255) NOT NULL,
+    PRIMARY KEY (user_id)
 );
-
-    -- user_id INT references users(id),

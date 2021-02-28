@@ -16,16 +16,18 @@ function PostTable({ posts }) {
       </div>
       <div>
         <FlipMove className="postTable__rows">
-          {posts?.map(({ id, money, date, income, concept }) => (
-            <Post
-              key={id}
-              id={id}
-              money={money}
-              date={date}
-              income={income}
-              concept={concept}
-            />
-          ))}
+          {posts.length >= 1 &&
+            posts[0].id !== null &&
+            posts?.map(({ id, money, date, income, concept }) => (
+              <Post
+                key={id}
+                id={id}
+                money={money}
+                date={date}
+                income={income}
+                concept={concept}
+              />
+            ))}
         </FlipMove>
       </div>
     </div>

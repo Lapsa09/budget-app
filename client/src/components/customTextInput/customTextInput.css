@@ -1,11 +1,14 @@
 .textInput {
     margin: 0 auto;
-    margin-bottom: 50px;
     /* width: 30%; */
     display: flex;
     justify-content: center;
     flex-direction: column;
     color: #908e9b;
+}
+
+.textInput+.textInput {
+    margin-top: 30px;
 }
 
 .textInput>input {
@@ -15,7 +18,7 @@
     border-left: 0;
     border-right: 0;
     border-bottom: 1px solid lightgray;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     outline: none;
     font-size: 1.5rem;
 }

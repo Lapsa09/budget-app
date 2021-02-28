@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTab } from "../../redux/features/TabSlice";
 import { selectIncome, openModal } from "../../redux/features/ModalSlice";
 import { getPosts, setFunds, setPosts } from "../../redux/features/PostsSlice";
-import axios from "axios";
 import "./post.css";
 
 const Post = forwardRef(({ id, money, income, concept, date }, ref) => {
@@ -13,9 +12,11 @@ const Post = forwardRef(({ id, money, income, concept, date }, ref) => {
   const posts = useSelector(getPosts);
 
   const handleDate = (date) => {
-    const _date = date.split(/[-T]/);
+    if (date) {
+      const _date = date.split(/[-T]/);
 
-    return `${_date[2]}-${_date[1]}-${_date[0]}`;
+      return `${_date[2]}-${_date[1]}-${_date[0]}`;
+    }
   };
 
   const handleEdit = () => {
@@ -25,18 +26,27 @@ const Post = forwardRef(({ id, money, income, concept, date }, ref) => {
         money,
         income,
         concept,
+        date,
       })
     );
     dispatch(openModal());
   };
 
   const handleDelete = async () => {
-    const { data } = await axios.delete(
-      `https://rocky-fjord-87785.herokuapp.com/api/${id}`
-    );
+    try {
+      await fetch(
+        `https://rocky-fjord-87785.herokuapp.com/dashboard/incomes/${id}`,
+        {
+          method: "DELETE",
+          headers: { jwt_token: localStorage.token },
+        }
+      );
 
-    dispatch(setPosts(posts.filter((post) => post.id != id)));
-    dispatch(setFunds());
+      dispatch(setPosts(posts.filter((post) => post.id !== id)));
+      dispatch(setFunds());
+    } catch (error) {
+      console.error(error.message);
+    }
   };
   return (
     <div ref={ref} className={`post ${tab === 1 && "editable"}`}>

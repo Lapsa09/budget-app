@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import CustomRadioInput from "../customRadioInput/CustomRadioInput";
 import CustomMoneyInput from "../customMoneyInput/CustomMoneyInput";
 import CustomTextInput from "../customTextInput/CustomTextInput";
@@ -39,35 +38,67 @@ function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { data } = await axios.post(
-      "https://rocky-fjord-87785.herokuapp.com/api",
-      {
-        money,
-        date,
-        income: type,
-        concept,
-      }
-    );
-    dispatch(setPosts([...data, ...posts]));
-    dispatch(setFunds());
-    dispatch(closeModal());
+    try {
+      const myHeaders = new Headers();
+
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("jwt_token", localStorage.token);
+
+      const body = { money, date, income: type, concept };
+
+      console.log(body);
+
+      const res = await fetch(
+        "https://rocky-fjord-87785.herokuapp.com/dashboard/incomes",
+        {
+          method: "POST",
+          headers: myHeaders,
+          body: JSON.stringify(body),
+        }
+      );
+
+      const parseData = await res.json();
+
+      dispatch(setPosts([parseData, ...posts]));
+      dispatch(setFunds());
+      dispatch(closeModal());
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   const handleEdit = async (e) => {
     e.preventDefault();
 
-    const { data } = await axios.put(
-      `https://rocky-fjord-87785.herokuapp.com/api/${incomes.id}`,
-      {
-        money,
-        concept,
-      }
-    );
-    dispatch(
-      setPosts(posts.map((post) => (post.id == data[0].id ? data[0] : post)))
-    );
-    dispatch(setFunds());
-    dispatch(closeModal());
+    try {
+      const body = { money, concept };
+
+      const myHeaders = new Headers();
+
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("jwt_token", localStorage.token);
+
+      const res = await fetch(
+        `https://rocky-fjord-87785.herokuapp.com/dashboard/incomes/${incomes.id}`,
+        {
+          method: "PUT",
+          headers: myHeaders,
+          body: JSON.stringify(body),
+        }
+      );
+
+      const parseData = await res.json();
+
+      dispatch(
+        setPosts(
+          posts.map((post) => (post.id == parseData.id ? parseData : post))
+        )
+      );
+      dispatch(setFunds());
+      dispatch(closeModal());
+    } catch (error) {
+      console.error(error.message);
+    }
   };
   return (
     <div className="form-background">
@@ -98,6 +129,7 @@ function Form() {
         </div>
         <CustomTextInput
           value={concept}
+          type="text"
           label="Concept"
           onChange={(e) => setConcept(e.target.value)}
         />

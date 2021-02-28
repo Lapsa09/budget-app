@@ -4,6 +4,7 @@
     background-color: #8739f9;
     display: grid;
     grid-template-columns: repeat(3, 0.5fr);
+    align-items: center;
     border-radius: 50px;
     margin-bottom: 10px;
     position: relative;

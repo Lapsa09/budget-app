@@ -3,6 +3,33 @@
     flex-direction: column;
 }
 
+.home__logout {
+    width: 250px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.home__logout>p {
+    font-size: 1.5rem;
+}
+
+.home__logout>button {
+    position: relative;
+    background-color: transparent;
+    border: none;
+    color: rgb(226, 226, 226);
+    font-size: 1rem;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.home__logout>button:hover {
+    color: white;
+}
+
 .home__main {
     display: flex;
     align-items: center;
