@@ -1,5 +1,5 @@
 .register {
-    width: 40%;
+    width: 770px;
     background-color: white;
     margin: 50px auto 0;
     border-radius: 50px;
@@ -20,7 +20,6 @@
 .register>form>.reg__buttons {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
     margin-top: 50px;
 }
 
@@ -28,7 +27,6 @@
     text-decoration: none;
     background-color: #2c94cc;
     border: none;
-    align-self: flex-end;
     border-radius: 2px 2px 2px 2px;
     color: white;
     cursor: pointer;
@@ -54,4 +52,20 @@
 .register>form>.error {
     color: red;
     margin-top: 20px;
+}
+
+@media(max-width:770px) {
+    .register {
+        width: 100%;
+    }
+    .register>form {
+        width: 80%;
+    }
+}
+
+@media(max-width:440px) {
+    .register>form>.reg__buttons {
+        flex-direction: column;
+        align-items: center;
+    }
 }
